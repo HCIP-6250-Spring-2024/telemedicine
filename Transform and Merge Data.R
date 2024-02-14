@@ -2,11 +2,12 @@
 # Install and load libraries
 #-------------------------------------------------------------------------
 # Install required packages (uncomment following lines and only run once)
-install.packages("googledrive")
-install.packages("glue")
-install.packages("tidyr")
-install.packages("readxl")
-install.packages("zoo")
+# install.packages("googledrive")
+# install.packages("glue")
+# install.packages("tidyr")
+# install.packages("readxl")
+# install.packages("zoo")
+# install.packages("dplyr")
 
 # Load required libraries (run every time you open file)
 library(googledrive)
@@ -14,6 +15,7 @@ library(glue)
 library (tidyr)
 library(readxl)
 library(zoo)
+library(dplyr)
 
 #-------------------------------------------------------------------------
 # Authenticate and authorize access to Google Drive to access data files
