@@ -183,3 +183,111 @@ total_mcaid <- total_mcaid %>%
 # Merge total_mcaid onto merged_data based on State Name and Year columns
 #-------------------------------------------------------------------------
 merged_data <- merge(merged_data, total_mcaid, by = c("State Name", "Year"), all.x = TRUE)
+
+#-------------------------------------------------------------------------
+# Find and read in 2021 Total Medicare Beneficiary file
+#-------------------------------------------------------------------------
+# List files in your Google Drive
+drive_find(type = "csv")
+
+# Find the Kaiser HSPA CSV file
+file <- drive_find("total_medicare_ben_2021.csv")
+
+# Create the file path to Google drive file location to download the file
+total21_id <- glue("https://drive.google.com/open?id=",file$id)
+
+# Download the file from Google drive
+drive_download(file=as_id(total21_id),overwrite = TRUE)
+
+# Read in the downloaded file
+total21 <- read.csv("total_medicare_ben_2021.csv")
+
+#-------------------------------------------------------------------------
+# Transform and Merge 2021 Total Medicare Beneficiary file into Merged file
+#-------------------------------------------------------------------------
+# Rename Location to State Name to match merged file
+total21 <- total21 %>%
+  rename(`State Name` = Location)
+
+# Add year column to total21 to prepare for merge
+total21$Year = 2021
+
+# Drop commas and change total to Numeric
+total21$Total.Medicare.Enrollment <- gsub(",", "", total21$Total.Medicare.Enrollment)
+total21$Total.Medicare.Enrollment.2021 <- as.numeric(total21$Total.Medicare.Enrollment)
+
+# Merge total21 onto merged_data based on State Name and Year columns
+merged_data <- merge(merged_data, total21[, c("State Name", "Year", "Total.Medicare.Enrollment.2021")], 
+  by = c("State Name", "Year"), all.x = TRUE)
+
+#-------------------------------------------------------------------------
+# Find and read in 2020 Total Medicare Beneficiary file
+#-------------------------------------------------------------------------
+# List files in your Google Drive
+drive_find(type = "csv")
+
+# Find the Kaiser HSPA CSV file
+file <- drive_find("total_medicare_ben_2020.csv")
+
+# Create the file path to Google drive file location to download the file
+total20_id <- glue("https://drive.google.com/open?id=",file$id)
+
+# Download the file from Google drive
+drive_download(file=as_id(total20_id),overwrite = TRUE)
+
+# Read in the downloaded file
+total20 <- read.csv("total_medicare_ben_2020.csv")
+
+#-------------------------------------------------------------------------
+# Transform and Merge 2020 Total Medicare Beneficiary file into Merged file
+#-------------------------------------------------------------------------
+# Rename Location to State Name to match merged file
+total20 <- total20 %>%
+  rename(`State Name` = Location)
+
+# Add year column to total21 to prepare for merge
+total20$Year = 2020
+
+# Drop commas and change total to Numeric
+total20$Total.Medicare.Enrollment <- gsub(",", "", total20$Total.Medicare.Enrollment)
+total20$Total.Medicare.Enrollment.2020 <- as.numeric(total20$Total.Medicare.Enrollment)
+
+# Merge total21 onto merged_data based on State Name and Year columns
+merged_data <- merge(merged_data, total20[, c("State Name", "Year", "Total.Medicare.Enrollment.2020")], 
+  by = c("State Name", "Year"), all.x = TRUE)
+
+#-------------------------------------------------------------------------
+# Find and read in 2019 Total Medicare Beneficiary file
+#-------------------------------------------------------------------------
+# List files in your Google Drive
+drive_find(type = "csv")
+
+# Find the Kaiser HSPA CSV file
+file <- drive_find("total_medicare_ben_2019.csv")
+
+# Create the file path to Google drive file location to download the file
+total19_id <- glue("https://drive.google.com/open?id=",file$id)
+
+# Download the file from Google drive
+drive_download(file=as_id(total19_id),overwrite = TRUE)
+
+# Read in the downloaded file
+total19 <- read.csv("total_medicare_ben_2019.csv")
+
+#-------------------------------------------------------------------------
+# Transform and Merge 2020 Total Medicare Beneficiary file into Merged file
+#-------------------------------------------------------------------------
+# Rename Location to State Name to match merged file
+total19 <- total19 %>%
+  rename(`State Name` = Location)
+
+# Add year column to total21 to prepare for merge
+total19$Year = 2019
+
+# Drop commas and change total to Numeric
+total19$Total.Medicare.Enrollment <- gsub(",", "", total19$Total.Medicare.Enrollment)
+total19$Total.Medicare.Enrollment.2019 <- as.numeric(total19$Total.Medicare.Enrollment)
+
+# Merge total21 onto merged_data based on State Name and Year columns
+merged_data <- merge(merged_data, total19[, c("State Name", "Year", "Total.Medicare.Enrollment.2019")], 
+  by = c("State Name", "Year"), all.x = TRUE)
