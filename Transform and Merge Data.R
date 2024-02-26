@@ -245,14 +245,14 @@ total20 <- read.csv("total_medicare_ben_2020.csv")
 total20 <- total20 %>%
   rename(`State Name` = Location)
 
-# Add year column to total21 to prepare for merge
+# Add year column to total20 to prepare for merge
 total20$Year = 2020
 
 # Drop commas and change total to Numeric
 total20$Total.Medicare.Enrollment <- gsub(",", "", total20$Total.Medicare.Enrollment)
 total20$Total.Medicare.Enrollment.2020 <- as.numeric(total20$Total.Medicare.Enrollment)
 
-# Merge total21 onto merged_data based on State Name and Year columns
+# Merge total20 onto merged_data based on State Name and Year columns
 merged_data <- merge(merged_data, total20[, c("State Name", "Year", "Total.Medicare.Enrollment.2020")], 
   by = c("State Name", "Year"), all.x = TRUE)
 
@@ -275,19 +275,19 @@ drive_download(file=as_id(total19_id),overwrite = TRUE)
 total19 <- read.csv("total_medicare_ben_2019.csv")
 
 #-------------------------------------------------------------------------
-# Transform and Merge 2020 Total Medicare Beneficiary file into Merged file
+# Transform and Merge 2019 Total Medicare Beneficiary file into Merged file
 #-------------------------------------------------------------------------
 # Rename Location to State Name to match merged file
 total19 <- total19 %>%
   rename(`State Name` = Location)
 
-# Add year column to total21 to prepare for merge
+# Add year column to total19 to prepare for merge
 total19$Year = 2019
 
 # Drop commas and change total to Numeric
 total19$Total.Medicare.Enrollment <- gsub(",", "", total19$Total.Medicare.Enrollment)
 total19$Total.Medicare.Enrollment.2019 <- as.numeric(total19$Total.Medicare.Enrollment)
 
-# Merge total21 onto merged_data based on State Name and Year columns
+# Merge total19 onto merged_data based on State Name and Year columns
 merged_data <- merge(merged_data, total19[, c("State Name", "Year", "Total.Medicare.Enrollment.2019")], 
   by = c("State Name", "Year"), all.x = TRUE)
