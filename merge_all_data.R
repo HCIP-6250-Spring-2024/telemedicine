@@ -148,3 +148,21 @@ merged_data <- merge(merged_data, state_pops,
 # Merge kff_hspa onto merged_data based on ONLY the State Name column
 merged_data <- merge(merged_data, kff_hspa, 
                      by = "State Name", all.x = TRUE)
+
+#-------------------------------------------------------------------------
+# Export Medicare Total file to Google Drive folder
+#-------------------------------------------------------------------------
+# Define the file name for saving the new file
+output_file_name <- "final_dataset.csv"
+
+# Export the total_mcaid dataframe to a CSV file
+write.csv(merged_data, file = output_file_name, row.names = FALSE)
+
+# Upload the saved file to Google Drive in a specific folder
+drive_upload(
+  media = output_file_name,
+  path = as_id("18l6Z8dbpl6fCnuEXjpXQrhM-oT3zk84k"),
+  name = output_file_name,
+  type = "text/csv",
+  overwrite = TRUE,
+)
