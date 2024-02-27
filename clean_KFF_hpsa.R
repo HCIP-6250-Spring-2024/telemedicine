@@ -72,6 +72,19 @@ kff_final$`State Name` <- gsub("Dist\\.\\.of\\.Columbia", "District of Columbia"
 # Find and replace all periods between state names with space to match Medicare
 kff_final$`State Name` <- gsub("\\.", " ", kff_final$`State Name`)
 
+# Remove '%' character and convert Percent of Need Met to numeric 
+kff_final$'Percent of Need Met' <- as.numeric(gsub("%", "", kff_hspa$'Percent of Need Met'))
+
+# Convert the values in Percent of Need Met to decimal representation
+kff_final$'Percent of Need Met' <- kff_final$'Percent of Need Met' / 100
+
+# Find and replace all commas within Practicioners column and change to numeric
+kff_final$`Practitioners Needed to Remove HPSA Designation` <- as.numeric(
+  gsub(",", "", kff_final$`Practitioners Needed to Remove HPSA Designation`))
+
+# Subset relevant columns
+kff_final <- kff_final[c('State Name','Percent of Need Met', 'Practitioners Needed to Remove HPSA Designation')]
+
 #-------------------------------------------------------------------------
 # Export KFF file to Google Drive folder
 #-------------------------------------------------------------------------
