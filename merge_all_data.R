@@ -113,6 +113,24 @@ drive_download(file=as_id(total_mcare_id),overwrite = TRUE)
 total_mcare <- read.csv("total_mcare_final.csv", check.names=FALSE)
 
 #-------------------------------------------------------------------------
+# Find and read in Total Medicaid Beneficiaries cleaned data file
+#-------------------------------------------------------------------------
+# List files in your Google Drive
+drive_find(type = "csv")
+
+# Find the Kaiser HSPA CSV file
+file <- drive_find("total_mcaid_final.csv")
+
+# Create the file path to Google drive file location to download the file
+total_mcaid_id <- glue("https://drive.google.com/open?id=",file$id)
+
+# Download the file from Google drive
+drive_download(file=as_id(total_mcaid_id),overwrite = TRUE)
+
+# Read in the downloaded file
+total_mcaid <- read.csv("total_mcaid_final.csv", check.names=FALSE)
+
+#-------------------------------------------------------------------------
 # Find and read in KFF cleaned data file
 #-------------------------------------------------------------------------
 # List files in your Google Drive
@@ -145,12 +163,16 @@ merged_data <- merge(merged_data, mcaid_tele,
 merged_data <- merge(merged_data, state_pops, 
                      by = c("State Name", "Year"), all.x = TRUE)
 
+# Merge total_mcaid onto merged_data based on State Name and Year columns
+merged_data <- merge(merged_data, total_mcaid, 
+                     by = c("State Name", "Year"), all.x = TRUE)
+
 # Merge kff_hspa onto merged_data based on ONLY the State Name column
 merged_data <- merge(merged_data, kff_hspa, 
                      by = "State Name", all.x = TRUE)
 
 #-------------------------------------------------------------------------
-# Export Medicare Total file to Google Drive folder
+# Export final_dataset to Google Drive folder
 #-------------------------------------------------------------------------
 # Define the file name for saving the new file
 output_file_name <- "final_dataset.csv"
